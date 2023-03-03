@@ -6,7 +6,7 @@ import Test2 from './pages/Test2'
 
 function App() {
   return (
-    <Router>
+    <Router basename={'/smack'}>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/test' element={<Test />} />
