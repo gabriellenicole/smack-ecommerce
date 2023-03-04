@@ -9,7 +9,7 @@ export default function () {
         <p className='text-sm text-white'>+65 88812394</p>
       </div>
       <p className='text-sm text-white'>
-        Get 50% Off on Selected Items | Shop Now
+        Get 50% Off on Selected Items | Free Delivery Worldwide
       </p>
       <p className='text-sm text-white'>smack@gmail.com</p>
     </div>

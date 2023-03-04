@@ -6,7 +6,7 @@ export default function Logo() {
     <div>
       <div className='flex items-center space-x-2 '>
         <BiCookie size={'3rem'} color='#FE9800' />
-        <h1 className='font-semibold text-3xl bg-gradient-to-r text-transparent bg-clip-text from-orange to-limegreen'>
+        <h1 className='font-semibold text-3xl bg-gradient-to-r text-transparent bg-clip-text from-orange to-[#ffb96a]'>
           Smack.
         </h1>
       </div>

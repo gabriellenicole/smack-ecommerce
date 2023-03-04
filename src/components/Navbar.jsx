@@ -5,7 +5,7 @@ import Searchbar from './Searchbar'
 
 export default function Navbar() {
   return (
-    <div className='px-10 my-4 flex justify-between items-center'>
+    <div className='px-10 py-5 flex justify-between items-center sticky top-0 bg-white bg-opacity-95'>
       <Logo />
       <div className='flex items-center gap-x-6'>
         <Searchbar />
