@@ -9,7 +9,7 @@ export default function Landing() {
           Grab yours while stock lasts
         </p>
         <h1 className='font-bold text-[3rem] leading-tight'>
-          Diverse flavours. Good-for-you Snack
+          Diverse flavours, Good-for-you Snack
         </h1>
         {/* <h2 className='text-lg'>
           Discover the wildest selection of uncharted types and flavours from
