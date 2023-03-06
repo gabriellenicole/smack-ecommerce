@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .button-class {
-  @apply rounded-lg text-base px-4 py-2.5 text-center mt-5 hover:bg-opacity-90 focus:ring-4 focus:ring-darkerOrange;
+  @apply rounded-lg px-4 py-2.5 text-center mt-5 hover:bg-opacity-90 focus:ring-2 focus:ring-darkerOrange;
 }

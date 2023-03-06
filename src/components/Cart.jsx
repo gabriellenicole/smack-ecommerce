@@ -43,7 +43,7 @@ export default function Cart() {
     },
   ]
   return (
-    <div className='absolute right-8 top-24 z-50 bg-white shadow-lg rounded-lg p-10 w-[600px] max-h-[700px] flex-col'>
+    <div className='absolute right-8 top-24 bg-white shadow-lg rounded-lg p-10 w-[600px] max-h-[700px] flex-col'>
       <h1 className='font-semibold text-2xl mb-2'>Your cart</h1>
       <div className='overflow-auto max-h-[400px] my-7'>
         {data?.map((item) => (

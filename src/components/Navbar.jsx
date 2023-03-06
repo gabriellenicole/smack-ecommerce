@@ -5,7 +5,7 @@ import Searchbar from './Searchbar'
 import Cart from './Cart'
 
 export default function Navbar() {
-  const [openCart, setOpenCart] = useState(true)
+  const [openCart, setOpenCart] = useState(false)
   return (
     <div className='px-10 py-5 flex justify-between items-center sticky top-0 bg-white bg-opacity-95'>
       <Logo />

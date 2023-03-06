@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function CheckboxInput({ label, tag }) {
+export default function CheckboxInput({ label, tag, type }) {
   return (
     <div className='flex items-center my-2'>
       <input
         id={tag}
-        type='checkbox'
+        type={type}
         value={tag}
         className='w-4 h-4 accent-orange'
       />

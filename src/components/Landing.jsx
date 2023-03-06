@@ -15,7 +15,7 @@ export default function Landing() {
           Discover the wildest selection of uncharted types and flavours from
           small-batch producers all over the world.
         </h2> */}
-        <button className='rounded-lg bg-orange w-32 py-3 mt-10 font-semibold text-white shadow-md'>
+        <button className='button-class bg-orange w-32 py-3 mt-10 font-semibold text-white shadow-md'>
           Shop Now
         </button>
       </div>
