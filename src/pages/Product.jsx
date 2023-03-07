@@ -9,7 +9,6 @@ export default function Product() {
   const [qty, setQty] = useState(0)
   const getItems = () => {
     Axios.get(`http://localhost:3000/items/${id}`).then((response) => {
-      console.log(response.data)
       setItem(response.data)
     })
   }
