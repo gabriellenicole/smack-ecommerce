@@ -5,8 +5,8 @@ export const useUser = () => {
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
 
-  const loginHelper = ({ username, uid }) => {
-    dispatch(login({ username: username, uid: uid }))
+  const loginHelper = (username) => {
+    dispatch(login(username))
   }
 
   const logoutHelper = () => {

@@ -3,19 +3,47 @@ import Product from './pages/Product'
 import Header from './components/Header'
 import Navbar from './components/Navbar'
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from 'react-router-dom'
 import Login from './pages/Login'
+import { useUser } from './hooks/useUser'
 
 function App() {
-  const user = null
+  // protect Home route if user is null
+  const ProtectedRoute = ({ children }) => {
+    if (!currentUser) {
+      return <Navigate to='/login' />
+    }
+    return children
+  }
+
+  const { currentUser } = useUser()
   return (
     <Router basename={'/smack'}>
       <Header />
-      {user && <Navbar />}
+      {currentUser && <Navbar />}
       <Routes>
         <Route path='/login' element={<Login />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/product/:id' element={<Product />} />
+        <Route
+          path='/'
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/product/:id'
+          element={
+            <ProtectedRoute>
+              <Product />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   )
