@@ -1,7 +1,9 @@
 import React from 'react'
 import { FiTrash } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom'
 
-export default function Cart() {
+export default function Cart({ page }) {
+  const navigate = useNavigate()
   const data = [
     {
       id: 1,
@@ -42,8 +44,13 @@ export default function Cart() {
       quantity: 10,
     },
   ]
+
+  const handleClick = () => {
+    navigate('/payment')
+  }
+
   return (
-    <div className='absolute right-8 top-24 bg-white shadow-lg rounded-lg p-10 w-[600px] max-h-[700px] flex-col'>
+    <>
       <h1 className='font-semibold text-2xl mb-2'>Your cart</h1>
       <div className='overflow-auto max-h-[400px] my-7'>
         {data?.map((item) => (
@@ -67,14 +74,19 @@ export default function Cart() {
         <span className='font-semibold text-lg'>SUBTOTAL</span>
         <span className='font-semibold text-lg'>$123</span>
       </div>
-      <div className='flex justify-between items-end mt-5'>
-        <span className='opacity-70 mb-2 cursor-pointer text-sm text-red'>
-          Reset Cart
-        </span>
-        <button className='button-class bg-orange text-white'>
-          Proceed to Checkout
-        </button>
-      </div>
-    </div>
+      {page == 'navbar' && (
+        <div className='flex justify-between items-end mt-5'>
+          <span className='opacity-70 mb-2 cursor-pointer text-sm text-red'>
+            Reset Cart
+          </span>
+          <button
+            onClick={handleClick}
+            className='button-class bg-orange text-white'
+          >
+            Proceed to Checkout
+          </button>
+        </div>
+      )}
+    </>
   )
 }

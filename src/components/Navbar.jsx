@@ -7,11 +7,13 @@ import { useUser } from '../hooks/useUser'
 export default function Navbar() {
   const [openCart, setOpenCart] = useState(false)
   const { currentUser, logout } = useUser()
+
   const handleLogout = () => {
     localStorage.removeItem('user')
     localStorage.removeItem('password')
     logout()
   }
+
   return (
     <div className='px-10 py-5 flex justify-between items-center sticky top-0 bg-white bg-opacity-95'>
       <Logo />
@@ -36,7 +38,11 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      {openCart && <Cart />}
+      {openCart && (
+        <div className='absolute right-8 top-24 bg-white shadow-lg rounded-lg p-10 w-[600px] max-h-[700px] flex-col'>
+          <Cart page={'navbar'} />
+        </div>
+      )}
     </div>
   )
 }
