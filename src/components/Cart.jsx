@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { FiTrash } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
@@ -6,47 +6,7 @@ import { useCart } from '../hooks/useCart'
 export default function Cart({ page }) {
   const { toggleCart } = useCart()
   const navigate = useNavigate()
-  const data = [
-    {
-      id: 1,
-      imgSrc:
-        'https://cdn.shopify.com/s/files/1/0530/1351/2341/files/MM_BananaChocolateChip-4x7x2-3.png?v=1671119503&width=720',
-      title: 'Dark Chocolate Chip Soft Cookie',
-      description:
-        'Soft-baked, rich chocolate. Soft-baked, rich chocolate. Soft-baked, rich chocolate.',
-      price: 96,
-      quantity: 10,
-    },
-    {
-      id: 2,
-      imgSrc:
-        'https://cdn.shopify.com/s/files/1/0530/1351/2341/files/MM_SimplyAlmond-4x7x2-3_d430b44a-5c3a-473e-9dd9-96bf1b33b4c8.png?v=1672338294&width=720',
-      title: 'Dark Chocolate Chip Soft Cookie',
-      description: 'Soft-baked, rich chocolate.',
-      price: 24,
-      quantity: 10,
-    },
-    {
-      id: 3,
-      imgSrc:
-        'https://cdn.shopify.com/s/files/1/0530/1351/2341/files/MM_SimplyAlmond-4x7x2-3_d430b44a-5c3a-473e-9dd9-96bf1b33b4c8.png?v=1672338294&width=720',
-      title: 'Dark Chocolate Chip Soft Cookie',
-      description: 'Soft-baked, rich chocolate.',
-      price: 24,
-      quantity: 10,
-    },
-    {
-      id: 4,
-      imgSrc:
-        'https://cdn.shopify.com/s/files/1/0530/1351/2341/files/MM_BananaChocolateChip-4x7x2-3.png?v=1671119503&width=720',
-      title: 'Dark Chocolate Chip Soft Cookie',
-      description:
-        'Soft-baked, rich chocolate. Soft-baked, rich chocolate. Soft-baked, rich chocolate.',
-      price: 96,
-      quantity: 10,
-    },
-  ]
-
+  const [data, setData] = useState([])
   const handleClick = () => {
     toggleCart()
     navigate('/payment')

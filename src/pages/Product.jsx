@@ -8,7 +8,7 @@ export default function Product() {
   const [item, setItem] = useState()
   const [qty, setQty] = useState(0)
   const getItems = () => {
-    Axios.get(`http://localhost:3000/items/${id}`).then((response) => {
+    Axios.get(`http://localhost:9999/api/listings?id=${id}`).then((response) => {
       setItem(response.data)
     })
   }

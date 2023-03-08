@@ -13,7 +13,7 @@ import Layout from './components/Layout'
 
 function App() {
   return (
-    <Router basename={'/smack'}>
+    <Router basename={'/'}>
       <Routes>
         <Route element={<Layout />}>
           <Route element={<PersistAuth />}>

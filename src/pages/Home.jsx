@@ -7,8 +7,9 @@ import Axios from 'axios'
 
 export default function Home() {
   const [data, setData] = useState([])
+  const [cartData, setCartData] = useState([])
   const getItems = () => {
-    Axios.get('http://localhost:3000/items').then((response) => {
+    Axios.get('http://localhost:9999/api/listings').then((response) => {
       setData(response.data)
     })
   }

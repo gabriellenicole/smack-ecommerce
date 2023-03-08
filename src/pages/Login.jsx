@@ -2,20 +2,29 @@ import React, { useState } from 'react'
 import Logo from '../components/Logo'
 import { useUser } from '../hooks/useUser'
 import { useNavigate } from 'react-router-dom'
+import Axios from "axios";
 
 export default function Login() {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
+  const [userId, setUserId] = useState('')
   const { login } = useUser()
   const navigate = useNavigate()
 
   const handleClick = () => {
     console.log(user, password)
 
-    login(user)
-    localStorage.setItem('user', user)
-    localStorage.setItem('password', password)
-    navigate('/')
+    Axios.get(`http://localhost:9999/api/users?username=${user}&?password=${password}`).then(res => {
+      if(res.data.length === 1){
+        login(user)
+        localStorage.setItem('user', user)
+        localStorage.setItem('password', password)
+        localStorage.setItem('user_id', res.data.id)
+
+        navigate('/')
+      }
+    })
+
   }
   const handleChangeUser = (e) => {
     setUser(e.target.value)
