@@ -10,14 +10,10 @@ export default function Home() {
   const [data, setData] = useState([])
   const { currentFilter } = useFilter()
   const getItems = () => {
-    Axios.get('http://localhost:3000/items').then((response) => {
+    Axios.get(`http://localhost:9999/api/listings?category=${currentFilter.category.join('+')}&?priceRange=${currentFilter.priceRange.join('+')}&sort=${currentFilter.sort}`).then((response) => {
       setData(response.data)
     })
   }
-
-  console.log(currentFilter.priceRange.join('+'))
-  console.log(currentFilter.sort)
-  console.log(currentFilter.category.join('+'))
 
   useEffect(() => {
     getItems()
