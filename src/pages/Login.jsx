@@ -7,7 +7,6 @@ import Axios from "axios";
 export default function Login() {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
-  const [userId, setUserId] = useState('')
   const { login } = useUser()
   const navigate = useNavigate()
 
@@ -16,16 +15,17 @@ export default function Login() {
 
     Axios.get(`http://localhost:9999/api/users?username=${user}&?password=${password}`).then(res => {
       if(res.data.length === 1){
-        login(user)
+        login(res.data[0].id)
         localStorage.setItem('user', user)
         localStorage.setItem('password', password)
-        localStorage.setItem('user_id', res.data.id)
+        localStorage.setItem('user_id', res.data[0].id)
 
         navigate('/')
       }
     })
 
   }
+
   const handleChangeUser = (e) => {
     setUser(e.target.value)
   }
