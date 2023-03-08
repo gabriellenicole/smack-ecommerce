@@ -7,6 +7,11 @@ import { useUser } from '../hooks/useUser'
 export default function Navbar() {
   const [openCart, setOpenCart] = useState(false)
   const { currentUser, logout } = useUser()
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('password')
+    logout()
+  }
   return (
     <div className='px-10 py-5 flex justify-between items-center sticky top-0 bg-white bg-opacity-95'>
       <Logo />
@@ -26,7 +31,7 @@ export default function Navbar() {
             </span>
             <h2 className='text-lg'>Cart</h2>
           </div>
-          <div onClick={logout} className='flex items-center space-x-3'>
+          <div onClick={handleLogout} className='flex items-center space-x-3'>
             <BiLogOut size='2rem' />
           </div>
         </div>

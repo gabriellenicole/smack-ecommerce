@@ -1,49 +1,31 @@
+// pages
 import Home from './pages/Home'
 import Product from './pages/Product'
+import Login from './pages/Login'
+
+// components
 import Header from './components/Header'
 import Navbar from './components/Navbar'
+import ProtectedRoute from './components/ProtectedRoute'
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from 'react-router-dom'
-import Login from './pages/Login'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useUser } from './hooks/useUser'
+import PersistAuth from './components/PersistAuth'
 
 function App() {
-  // protect Home route if user is null
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to='/login' />
-    }
-    return children
-  }
-
   const { currentUser } = useUser()
   return (
     <Router basename={'/smack'}>
       <Header />
       {currentUser && <Navbar />}
       <Routes>
-        <Route path='/login' element={<Login />} />
-        <Route
-          path='/'
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='/product/:id'
-          element={
-            <ProtectedRoute>
-              <Product />
-            </ProtectedRoute>
-          }
-        />
+        <Route element={<PersistAuth />}>
+          <Route path='/login' element={<Login />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path='/' element={<Home />} />
+            <Route path='/product/:id' element={<Product />} />
+          </Route>
+        </Route>
       </Routes>
     </Router>
   )

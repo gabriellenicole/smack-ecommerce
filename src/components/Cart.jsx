@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiDelete, FiTrash } from 'react-icons/fi'
+import { FiTrash } from 'react-icons/fi'
 
 export default function Cart() {
   const data = [

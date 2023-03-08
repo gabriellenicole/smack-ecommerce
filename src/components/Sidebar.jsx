@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react'
+import { useFilter } from '../hooks/useFilter'
 
 export default function Sidebar() {
+  const { add, clear, selectFilter } = useFilter()
   const [priceRange, setPriceRange] = useState([])
   const [sort, setSort] = useState(null)
   const [subCat, setSubCat] = useState([])
@@ -8,15 +10,14 @@ export default function Sidebar() {
   const ref = useRef([])
 
   const handleClear = () => {
-    console.log(priceRange)
-    console.log(subCat)
-    console.log(sort)
+    console.log(selectFilter)
     for (let i = 0; i < ref.current.length; i++) {
       ref.current[i].checked = false
     }
     setSubCat([])
     setPriceRange([])
     setSort(null)
+    clear()
   }
 
   const categories = [
@@ -73,21 +74,29 @@ export default function Sidebar() {
   const handleChange = (e) => {
     const value = e.target.value
     const isChecked = e.target.checked
+    const nextSubCat = isChecked
+      ? [...subCat, value]
+      : subCat.filter((item) => item !== value)
+    setSubCat(nextSubCat)
 
-    setSubCat(
-      isChecked ? [...subCat, value] : subCat.filter((item) => item !== value)
-    )
+    add(sort, priceRange, nextSubCat)
   }
 
   const handlePrice = (e) => {
     const value = e.target.value
     const isChecked = e.target.checked
+    const nextPriceRange = isChecked
+      ? [...priceRange, value]
+      : priceRange.filter((item) => item !== value)
 
-    setPriceRange(
-      isChecked
-        ? [...priceRange, value]
-        : priceRange.filter((item) => item !== value)
-    )
+    setPriceRange(nextPriceRange)
+    add(sort, nextPriceRange, subCat)
+  }
+
+  const handleSort = (e) => {
+    const nextSort = e.target.value
+    setSort(nextSort)
+    add(nextSort, priceRange, subCat)
   }
 
   return (
@@ -139,9 +148,9 @@ export default function Sidebar() {
           <input
             id='highToLow'
             type='radio'
-            value='highToLow'
+            value='desc'
             className='w-4 h-4 accent-gray'
-            onChange={() => setSort('desc')}
+            onChange={handleSort}
             name='price'
             ref={(element) => {
               ref.current[9] = element
@@ -155,10 +164,10 @@ export default function Sidebar() {
           <input
             id='lowToHigh'
             type='radio'
-            value='lowToHigh'
+            value='asc'
             className='w-4 h-4 accent-gray'
             name='price'
-            onChange={() => setSort('asc')}
+            onChange={handleSort}
             ref={(element) => {
               ref.current[10] = element
             }}

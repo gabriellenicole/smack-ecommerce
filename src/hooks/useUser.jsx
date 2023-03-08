@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { login, logout, selectUser } from '../features/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 export const useUser = () => {
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
-
   const loginHelper = (username) => {
     dispatch(login(username))
   }
