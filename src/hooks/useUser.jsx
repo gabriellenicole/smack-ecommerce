@@ -1,8 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { login, logout, selectUser } from '../features/userSlice'
-import { useNavigate } from 'react-router-dom'
+import { useCart } from './useCart'
+import { useFilter } from './useFilter'
 
 export const useUser = () => {
+  const { toggleCart, showCart } = useCart()
+  const { clear } = useFilter()
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
   const loginHelper = (username) => {
@@ -10,9 +13,14 @@ export const useUser = () => {
   }
 
   const logoutHelper = () => {
-    // dispatch to the store with the logout action
+    // clear filter state
+    clear()
+
+    // toggle cart if it's still shown
+    if (showCart) {
+      toggleCart()
+    }
     dispatch(logout())
-    // sign out function from firebase
   }
 
   return { currentUser: user, login: loginHelper, logout: logoutHelper }
