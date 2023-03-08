@@ -2,11 +2,13 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Axios from 'axios'
+import {useUser} from "../hooks/useUser.jsx";
 
 export default function Product() {
   const id = useParams().id
   const [item, setItem] = useState()
   const [qty, setQty] = useState(0)
+  const { currentUser } = useUser()
   const getItems = () => {
     Axios.get(`http://localhost:9999/api/listings?id=${id}`).then((response) => {
       setItem(response.data[0])
@@ -16,6 +18,10 @@ export default function Product() {
   useEffect(() => {
     getItems()
   }, [])
+
+  const handleClick = () => {
+    Axios.put(`http://localhost:9999/api/listings`, {params: {"user_id": currentUser}, "listing_id": id, "quantity": qty} ).then()
+  }
 
   return (
     <div className='flex items-center p-10 justify-center'>
@@ -44,7 +50,10 @@ export default function Product() {
             left. Don't miss it
           </span>
         </div>
-        <button className='button-class bg-orange text-white rounded-full mt-10 py-3 text-lg font-semibold w-56'>
+        <button
+            className='button-class bg-orange text-white rounded-full mt-10 py-3 text-lg font-semibold w-56'
+            onClick={handleClick}
+        >
           Add to Cart
         </button>
       </div>
