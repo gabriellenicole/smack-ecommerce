@@ -1,8 +1,10 @@
 import React from 'react'
 import { FiTrash } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
+import { useCart } from '../hooks/useCart'
 
 export default function Cart({ page }) {
+  const { toggleCart } = useCart()
   const navigate = useNavigate()
   const data = [
     {
@@ -46,6 +48,7 @@ export default function Cart({ page }) {
   ]
 
   const handleClick = () => {
+    toggleCart()
     navigate('/payment')
   }
 

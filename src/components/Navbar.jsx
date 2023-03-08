@@ -3,8 +3,10 @@ import { BiCart, BiLogOut, BiUser } from 'react-icons/bi'
 import Logo from './Logo'
 import Cart from './Cart'
 import { useUser } from '../hooks/useUser'
+import { useCart } from '../hooks/useCart'
 
 export default function Navbar() {
+  const { showCart, toggleCart } = useCart()
   const [openCart, setOpenCart] = useState(false)
   const { currentUser, logout } = useUser()
 
@@ -24,7 +26,7 @@ export default function Navbar() {
             <h2 className='text-lg'>{currentUser}</h2>
           </div>
           <div
-            onClick={() => setOpenCart(!openCart)}
+            onClick={toggleCart}
             className='cart flex items-center space-x-3 cursor-pointer relative'
           >
             <BiCart size='2rem' />
@@ -38,7 +40,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      {openCart && (
+      {showCart && (
         <div className='absolute right-8 top-24 bg-white shadow-lg rounded-lg p-10 w-[600px] max-h-[700px] flex-col'>
           <Cart page={'navbar'} />
         </div>
