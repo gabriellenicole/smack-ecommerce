@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { useFilter } from '../hooks/useFilter'
 
 export default function Sidebar() {
@@ -7,7 +7,18 @@ export default function Sidebar() {
   const [sort, setSort] = useState(null)
   const [subCat, setSubCat] = useState([])
 
+  const [getRequest, setGetRequest] = useState("")
+
   const ref = useRef([])
+
+  useEffect(() => {
+    console.log("sort: " + sort)
+    console.log("subcat: " + subCat)
+    console.log("pricerange: " + priceRange)
+    let subCat_joined = subCat.join('+')
+    let priceRange_joined = priceRange.join('+')
+    setGetRequest(`http://localhost:9999/api/listings?category=${subCat_joined}&?priceRange=${priceRange_joined}&sort=${sort}`)
+  },[priceRange, sort, subCat])
 
   const handleClear = () => {
     console.log(selectFilter)
@@ -43,8 +54,8 @@ export default function Sidebar() {
     },
     {
       id: 4,
-      label: 'Chrunchies',
-      tag: 'chrunchies',
+      label: 'Crunchies',
+      tag: 'crunchies',
     },
   ]
 

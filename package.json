@@ -2,7 +2,7 @@
   "name": "smack-ecommerce",
   "private": true,
   "version": "0.0.0",
-  "homepage": "http://localhost:9999/smack/",
+  "homepage": "http://localhost:9999/",
   "type": "module",
   "scripts": {
     "dev": "vite",
