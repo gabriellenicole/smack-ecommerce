@@ -10,18 +10,30 @@ export default function Home() {
   const [data, setData] = useState([])
   const { currentFilter } = useFilter()
   const getItems = () => {
+      let cat = ""
+      let prc = ""
+      let srt = ""
 
-      let cat = currentFilter ? currentFilter.category.join('+') : ""
-      let srt = currentFilter ? currentFilter.sort : ""
-      let prc = currentFilter ? currentFilter.priceRange.join('+') : ""
+      if(currentFilter){
+          if (currentFilter.category){
+              cat = currentFilter.category.join('+')
+          }
+          if(currentFilter.priceRange){
+              prc = currentFilter.priceRange.join('+')
+          }
+          if(currentFilter.sort){
+              srt = currentFilter.sort
+          }
+      }
+
       // console.log(cat)
       // console.log(srt)
       // console.log(prc)
 
-    Axios.get(`http://localhost:9999/api/listings?category=${cat}&?priceRange=${prc}&?sort=${srt}`).then((response) => {
+    Axios.get(`http://localhost:9999/api/listings?category=${cat}&priceRange=${prc}&sort=${srt}`).then((response) => {
       setData(response.data)
-      //   console.log(`http://localhost:9999/api/listings?category=${cat}&?priceRange=${prc}&?sort=${srt}`)
-        // console.log(response.data)
+        console.log(`http://localhost:9999/api/listings?category=${cat}&priceRange=${prc}&sort=${srt}`)
+      //   console.log(response.data)
     })
   }
 

@@ -14,6 +14,7 @@ export default function Login() {
     console.log(user, password)
 
     Axios.get(`http://localhost:9999/api/users?username=${user}&?password=${password}`).then(res => {
+      console.log(res.data)
       if(res.data.length === 1){
         login(res.data[0].id)
         localStorage.setItem('user', user)

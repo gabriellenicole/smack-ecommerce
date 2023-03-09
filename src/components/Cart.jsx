@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 import { FiTrash } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
+import {useUser} from "../hooks/useUser.jsx";
 
 export default function Cart({ page }) {
   const navigate = useNavigate()
+    const {currentUser} = useUser()
   const [data, setData] = useState([])
-  const handleClick = () => {
-    navigate('/payment')
-  }
+  // const handleClick = () => {
+  //     Axios.post(`http://localhost:9999/api/listings`, {params: {"user_id": currentUser}, "listing_id": list, "quantity": qty} )
+  //         .then()
+  // }
 
   return (
     <>

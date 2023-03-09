@@ -20,7 +20,14 @@ export default function Product() {
   }, [])
 
   const handleClick = () => {
-    Axios.put(`http://localhost:9999/api/listings`, {params: {"user_id": currentUser}, "listing_id": id, "quantity": qty} ).then()
+    let str = `http://localhost:9999/api/help?quantity=${qty}&listing_id=${id}&user_id=${currentUser.charCodeAt(0)-97}`
+    // console.log(str)
+    // console.log(currentUser)
+    Axios.post(`http://localhost:9999/api/cart?quantity=${qty}&listing_id=${id}&user_id=${currentUser}`).then()
+    // Axios.get(str).then()
+    // Axios.post(`http://localhost:9999/api/cart`,{"user_id": currentUser.charCodeAt(0)-97, "listing_id": id, "quantity": qty}).then(res => {
+    //   console.log(res)
+    // })
   }
 
   return (
