@@ -33,6 +33,7 @@ export default function Home() {
     Axios.get(`http://localhost:9999/api/listings?category=${cat}&priceRange=${prc}&sort=${srt}`).then((response) => {
       setData(response.data)
         console.log(`http://localhost:9999/api/listings?category=${cat}&priceRange=${prc}&sort=${srt}`)
+        console.log(response.data)
       //   console.log(response.data)
     })
   }
