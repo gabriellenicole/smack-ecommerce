@@ -9,8 +9,10 @@ export default function PersistAuth() {
   useEffect(() => {
     const user = localStorage.getItem('user') || ''
     const password = localStorage.getItem('password') || ''
-    login(user)
+    const userId = localStorage.getItem('userId') || ''
+
+    login(user, userId)
     setLoading(false)
-  }, [currentUser])
+  }, [])
   return loading ? <p>loading...</p> : <Outlet />
 }

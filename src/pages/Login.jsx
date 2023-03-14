@@ -11,10 +11,10 @@ export default function Login() {
 
   const handleClick = () => {
     console.log(user, password)
-
-    login(user)
+    login(user, 123)
     localStorage.setItem('user', user)
     localStorage.setItem('password', password)
+    localStorage.setItem('userId', 123)
     navigate('/')
   }
   const handleChangeUser = (e) => {

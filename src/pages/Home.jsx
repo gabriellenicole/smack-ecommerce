@@ -10,9 +10,20 @@ export default function Home() {
   const [data, setData] = useState([])
   const { currentFilter } = useFilter()
   const getItems = () => {
-    Axios.get(`http://localhost:9999/api/listings?category=${currentFilter.category.join('+')}&?priceRange=${currentFilter.priceRange.join('+')}&sort=${currentFilter.sort}`).then((response) => {
-      setData(response.data)
-    })
+    let cat = ''
+    let price = ''
+    let sort = ''
+    if (currentFilter) {
+      cat = currentFilter.category ? currentFilter.category.join('+') : ''
+      price = currentFilter.priceRange ? currentFilter.priceRange.join('+') : ''
+      sort = currentFilter.sort ? currentFilter.sort : ''
+    }
+    console.log(
+      `http://localhost:9999/api/listings?category=${cat}&?priceRange=${price}&sort=${sort}`
+    )
+    // Axios.get(`http://localhost:9999/api/listings?category=${cat}&?priceRange=${price}&sort=${sort}`).then((response) => {
+    //   setData(response.data)
+    // })
   }
 
   useEffect(() => {
