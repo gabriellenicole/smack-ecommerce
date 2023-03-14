@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Logo from '../components/Logo'
 import { useUser } from '../hooks/useUser'
 import { useNavigate } from 'react-router-dom'
-import Axios from "axios";
+import Axios from 'axios'
 
 export default function Login() {
   const [user, setUser] = useState('')
@@ -13,18 +13,21 @@ export default function Login() {
   const handleClick = () => {
     console.log(user, password)
 
-    Axios.get(`http://localhost:9999/api/users?username=${user}&?password=${password}`).then(res => {
+    Axios.get(
+      `http://localhost:9999/api/users?username=${user}&?password=${password}`
+    ).then((res) => {
       console.log(res.data)
-      if(res.data.length === 1){
-        login(res.data[0].id)
+      if (res.data.length === 1) {
+        let username = res.data[0].username
+        let userId = res.data[0].id
+        login(username, userId)
         localStorage.setItem('user', user)
         localStorage.setItem('password', password)
-        localStorage.setItem('user_id', res.data[0].id)
+        localStorage.setItem('userId', userId)
 
         navigate('/')
       }
     })
-
   }
 
   const handleChangeUser = (e) => {

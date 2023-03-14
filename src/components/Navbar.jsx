@@ -21,7 +21,7 @@ export default function Navbar() {
         <div className='flex items-center space-x-8'>
           <div className='user flex items-center space-x-3'>
             <BiUser size='2rem' />
-            <h2 className='text-lg'>{currentUser}</h2>
+            <h2 className='text-lg'>{currentUser?.username}</h2>
           </div>
           <div
             onClick={() => setOpenCart(!openCart)}
