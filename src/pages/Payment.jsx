@@ -1,7 +1,7 @@
 import React from 'react'
 import Cart from '../components/Cart'
 
-export default function Login() {
+export default function Payment() {
   return (
     <div className='h-[770px] w-screen items-center flex justify-center gap-x-16 bg-beige'>
       <div className='bg-white p-10 rounded-lg shadow-md'>
