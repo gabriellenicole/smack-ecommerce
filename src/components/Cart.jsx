@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { FiTrash } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
+import { useUser } from '../hooks/useUser'
 import axios from 'axios'
+// import { smackAxios } from '../api'
 
 export default function Cart({ page }) {
-  const { toggleCart, currentCart, updateCart } = useCart()
-  // const [subtotal, setSubtotal] = useState(0)
+  const { toggleCart, currentCart } = useCart()
+  const { currentUser } = useUser
   const navigate = useNavigate()
 
   const calculateTotal = (cartData) => {
@@ -23,25 +25,24 @@ export default function Cart({ page }) {
     navigate('/payment')
   }
 
-  const handleReset = () => {
-    updateCart([
-      {
-        id: 1,
-        imgSrc:
-          'https://cdn.shopify.com/s/files/1/0530/1351/2341/files/MM_BananaChocolateChip-4x7x2-3.png?v=1671119503&width=720',
-        title: 'Dark Chocolate Chip Soft Cookie',
-        description:
-          'Soft-baked, rich chocolate. Soft-baked, rich chocolate. Soft-baked, rich chocolate.',
-        price: 96,
-        quantity: 10,
-      },
-    ])
-    // API call reset cart
+  const handleReset = async () => {
+    // const response = await smackAxios.delete(
+    //   `api/cart?listing_id=&user_id=${currentUser.userId}&deleteAll=true`
+    // )
+    // updateCart(response.data)
   }
 
-  const handleDelete = (listingId) => {
-    console.log(listingId)
-    // API call delete item
+  const handleDelete = async (listingId) => {
+    // const response = await smackAxios.delete(
+    //   `api/cart?listing_id=${listingId}&user_id=${currentUser.userId}`
+    // )
+    // updateCart(response.data)
+  }
+
+  // get data from listing id
+  const getIndvidualItem = async (id) => {
+    const response = await axios.get(`http://localhost:3000/items/${id}`)
+    return response.data[0]
   }
 
   return (
@@ -66,9 +67,7 @@ export default function Cart({ page }) {
                 <img src={item.imgSrc} className='w-36'></img>
                 <div className='flex flex-1 flex-col justify-between gap-y-1'>
                   <h1 className='font-semibold mb-2 text-lg'>{item.title}</h1>
-                  <p className='opacity-60'>
-                    {item.description.substring(0, 50)}...
-                  </p>
+                  <p className='opacity-60'>{item.description}...</p>
                   <div className='text-orange text-lg'>
                     {item.quantity} x ${item.price}
                   </div>

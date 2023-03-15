@@ -18,12 +18,15 @@ export default function Home() {
       price = currentFilter.priceRange ? currentFilter.priceRange.join('+') : ''
       sort = currentFilter.sort ? currentFilter.sort : ''
     }
-    console.log(
-      `http://localhost:9999/api/listings?category=${cat}&?priceRange=${price}&sort=${sort}`
-    )
+    // console.log(
+    //   `http://localhost:9999/api/listings?category=${cat}&?priceRange=${price}&sort=${sort}`
+    // )
     // Axios.get(`http://localhost:9999/api/listings?category=${cat}&?priceRange=${price}&sort=${sort}`).then((response) => {
     //   setData(response.data)
     // })
+    Axios.get(`http://localhost:3000/items`).then((response) => {
+      setData(response.data)
+    })
   }
 
   useEffect(() => {
