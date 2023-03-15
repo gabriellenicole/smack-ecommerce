@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Axios from 'axios'
 import {useUser} from "../hooks/useUser.jsx";
+import {useCart} from "../hooks/useCart.jsx";
 
 export default function Product() {
   const id = useParams().id
   const [item, setItem] = useState()
   const [qty, setQty] = useState(0)
   const { currentUser } = useUser()
+  const { updateCart } = useCart()
   const getItems = () => {
     Axios.get(`http://localhost:9999/api/listings?id=${id}`).then((response) => {
       setItem(response.data[0])
@@ -20,14 +22,9 @@ export default function Product() {
   }, [])
 
   const handleClick = () => {
-    let str = `http://localhost:9999/api/help?quantity=${qty}&listing_id=${id}&user_id=${currentUser.charCodeAt(0)-97}`
-    // console.log(str)
-    // console.log(currentUser)
-    Axios.post(`http://localhost:9999/api/cart?quantity=${qty}&listing_id=${id}&user_id=${currentUser}`).then()
-    // Axios.get(str).then()
-    // Axios.post(`http://localhost:9999/api/cart`,{"user_id": currentUser.charCodeAt(0)-97, "listing_id": id, "quantity": qty}).then(res => {
-    //   console.log(res)
-    // })
+    Axios.get(`http://localhost:9999/api/help?quantity=${qty}&listing_id=${id}&user_id=${currentUser.userId}`).then(res => {
+      updateCart(res.data)
+    })
   }
 
   return (

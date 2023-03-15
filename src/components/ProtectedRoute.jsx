@@ -12,8 +12,9 @@ export default function ProtectedRoute() {
   const getCart = async () => {
     // API CALL: get initial item inside cart
     const response = await smackAxios.get(
-      `api/cart?listingId=&userId=${currentUser.userId}`
+      `api/cart?getListingData=true&user_id=${currentUser.userId}`
     )
+    // console.log(response.data)
     updateCart(response.data)
   }
 

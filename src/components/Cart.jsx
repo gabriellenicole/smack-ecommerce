@@ -6,8 +6,8 @@ import { useUser } from '../hooks/useUser'
 import { smackAxios } from '../api'
 
 export default function Cart({ page }) {
-  const { toggleCart, currentCart } = useCart()
-  const { currentUser } = useUser
+  const { toggleCart, currentCart, updateCart } = useCart()
+  const { currentUser } = useUser()
   const navigate = useNavigate()
 
   const calculateTotal = (cartData) => {
@@ -26,10 +26,11 @@ export default function Cart({ page }) {
 
   const handleReset = async () => {
     const response = await smackAxios.delete(
-      `api/cart?listing_id=&user_id=${currentUser.userId}&deleteAll=true`
+      `api/cart?user_id=${currentUser.userId}&deleteAll=true`
     )
     updateCart(response.data)
   }
+
 
   const handleDelete = async (listingId) => {
     const response = await smackAxios.delete(
@@ -57,9 +58,9 @@ export default function Cart({ page }) {
           <div className='overflow-auto max-h-[400px] my-7'>
             {currentCart?.map((item) => (
               <div className='flex items-center my-5' key={item.id}>
-                <img src={item.imgSrc} className='w-36'></img>
+                <img src={item.image} className='w-36'></img>
                 <div className='flex flex-1 flex-col justify-between gap-y-1'>
-                  <h1 className='font-semibold mb-2 text-lg'>{item.title}</h1>
+                  <h1 className='font-semibold mb-2 text-lg'>{item.name}</h1>
                   <p className='opacity-60'>
                     {item.description.substring(0, 50)}...
                   </p>
