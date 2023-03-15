@@ -11,12 +11,9 @@ export default function Login() {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    console.log(user, password)
-
     Axios.get(
       `http://localhost:9999/api/users?username=${user}&?password=${password}`
     ).then((res) => {
-      console.log(res.data)
       if (res.data.length === 1) {
         let username = res.data[0].username
         let userId = res.data[0].id

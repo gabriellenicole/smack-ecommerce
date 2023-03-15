@@ -14,7 +14,6 @@ export default function ProtectedRoute() {
     const response = await smackAxios.get(
       `api/cart?getListingData=true&user_id=${currentUser.userId}`
     )
-    // console.log(response.data)
     updateCart(response.data)
   }
 

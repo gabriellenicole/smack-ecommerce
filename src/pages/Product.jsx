@@ -1,9 +1,10 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Axios from 'axios'
 import {useUser} from "../hooks/useUser.jsx";
 import {useCart} from "../hooks/useCart.jsx";
+import {smackAxios} from "../api/index.js";
 
 export default function Product() {
   const id = useParams().id
@@ -11,6 +12,7 @@ export default function Product() {
   const [qty, setQty] = useState(0)
   const { currentUser } = useUser()
   const { updateCart } = useCart()
+  const navigate = useNavigate()
   const getItems = () => {
     Axios.get(`http://localhost:9999/api/listings?id=${id}`).then((response) => {
       setItem(response.data[0])
@@ -21,10 +23,13 @@ export default function Product() {
     getItems()
   }, [])
 
-  const handleClick = () => {
-    Axios.get(`http://localhost:9999/api/help?quantity=${qty}&listing_id=${id}&user_id=${currentUser.userId}`).then(res => {
-      updateCart(res.data)
-    })
+  const handleClick = async () => {
+    if(qty > 0){
+      await Axios.get(`http://localhost:9999/api/help?quantity=${qty}&listing_id=${id}&user_id=${currentUser.userId}`)
+      const response = await smackAxios.get(`api/cart?getListingData=true&user_id=${currentUser.userId}`)
+      updateCart(response.data)
+      navigate('/')
+    }
   }
 
   return (
@@ -43,7 +48,7 @@ export default function Product() {
             </button>
             <span className='font-semibold text-xl'>{qty}</span>
             <button
-              onClick={() => setQty(qty + 1)}
+              onClick={() => qty < item?.quantity ? setQty(qty + 1) : ""}
               className='text-xl font-light cursor-pointer'
             >
               +

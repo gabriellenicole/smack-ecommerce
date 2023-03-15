@@ -16,7 +16,7 @@ export default function Cart({ page }) {
       const item = cartData[i]
       total += item.price * item.quantity
     }
-    return total
+    return total.toFixed(2)
   }
 
   const handleClick = () => {
@@ -39,10 +39,12 @@ export default function Cart({ page }) {
     updateCart(response.data)
   }
 
+
+
   return (
     <>
       <h1 className='font-semibold text-2xl mb-2'>Your cart</h1>
-      {currentCart?.length == 0 && (
+      {currentCart?.length === 0 && (
         <div className='flex flex-col w-full items-center gap-y-3'>
           <h2>Your cart is empty :(</h2>
           <button
@@ -53,7 +55,7 @@ export default function Cart({ page }) {
           </button>
         </div>
       )}
-      {currentCart?.length != 0 && (
+      {currentCart?.length !== 0 && (
         <div>
           <div className='overflow-auto max-h-[400px] my-7'>
             {currentCart?.map((item) => (
@@ -61,9 +63,9 @@ export default function Cart({ page }) {
                 <img src={item.image} className='w-36'></img>
                 <div className='flex flex-1 flex-col justify-between gap-y-1'>
                   <h1 className='font-semibold mb-2 text-lg'>{item.name}</h1>
-                  <p className='opacity-60'>
-                    {item.description.substring(0, 50)}...
-                  </p>
+                  {/*<p className='opacity-60'>*/}
+                  {/*  {item.description.substring(0, 50)}...*/}
+                  {/*</p>*/}
                   <div className='text-orange text-lg'>
                     {item.quantity} x ${item.price}
                   </div>
@@ -82,7 +84,7 @@ export default function Cart({ page }) {
               ${calculateTotal(currentCart)}
             </span>
           </div>
-          {page == 'navbar' && (
+          {page === 'navbar' && (
             <div className='flex justify-between items-end mt-5'>
               <span
                 onClick={handleReset}

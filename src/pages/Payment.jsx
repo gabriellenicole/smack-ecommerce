@@ -3,22 +3,52 @@ import Cart from '../components/Cart'
 import { useCart } from '../hooks/useCart'
 import { smackAxios } from '../api'
 import { useUser } from '../hooks/useUser'
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
-  const { currentCart, updateCart } = useCart
-  const { currentUser } = useUser
+  const { currentCart, updateCart } = useCart()
+  const { currentUser } = useUser()
+  const navigate = useNavigate()
 
-  const deleteApiCall = async (listingId) => {
+  // const deleteApiCall = async (listingId) => {
+  //   const response = await smackAxios.delete(
+  //     `api/help?listing_id=${listingId}&user_id=${currentUser.userId}`
+  //   )
+  //   updateCart(response.data)
+  // }
+
+  // const handlePayment = () => {
+  //   currentCart?.map((item) => {
+  //     deleteApiCall(item.listing_id)
+  //   })
+  // }
+
+  const handleReset = async () => {
     const response = await smackAxios.delete(
-      `api/help?listing_id=${listingId}&user_id=${currentUser.userId}`
+        `api/cart?user_id=${currentUser.userId}&deleteAll=true`
     )
     updateCart(response.data)
   }
 
-  const handlePayment = () => {
-    currentCart?.map((item) => {
-      deleteApiCall(item.listing_id)
+  const handlePayment = async () => {
+    const trash = currentCart.map((item) => {
+      return {
+        quantity: item.quantity,
+        listing_id: item.id,
+      }
     })
+
+    await Promise.all(
+        trash.map((item) => {
+          return smackAxios.delete(
+              // `api/listing?listing_id=${item.listing_id}&user_id=${currentUser.userId}&quantity=${item.quantity}`
+              `api/help?listing_id=${item.listing_id}&user_id=${currentUser.userId}&quantity=${item.quantity}`
+          )
+        })
+    )
+
+    await handleReset()
+    navigate('/')
   }
 
   return (
