@@ -6,21 +6,41 @@ import { useUser } from '../hooks/useUser'
 import { smackAxios } from '../api'
 
 export default function Cart({ page }) {
-  const { toggleCart, currentCart, updateCart } = useCart()
+  const { toggleCart, showCart, currentCart, updateCart } = useCart()
   const { currentUser } = useUser()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const getCompleteCart = async () => {
+      const listingIds = currentCart.map((item) => item.listing_id)
+
+      const itemDetails = await Promise.all(
+        listingIds.map((id) => getIndividualItem(id))
+      )
+
+      const updatedCart = currentCart.map((item, index) => {
+        return {
+          ...item,
+          itemDetails: itemDetails[index],
+        }
+      })
+      setCompletedCart(updatedCart)
+    }
+
+    getCompleteCart()
+  }, [currentCart])
 
   const calculateTotal = (cartData) => {
     let total = 0
     for (let i = 0; i < cartData.length; i++) {
       const item = cartData[i]
-      total += item.price * item.quantity
+      total += item.itemDetails?.price * item.quantity
     }
-    return total
+    return total.toFixed(2)
   }
 
   const handleClick = () => {
-    toggleCart()
+    if (showCart) toggleCart()
     navigate('/payment')
   }
 
@@ -31,7 +51,6 @@ export default function Cart({ page }) {
     updateCart(response.data)
   }
 
-
   const handleDelete = async (listingId) => {
     const response = await smackAxios.delete(
       `api/cart?listing_id=${listingId}&user_id=${currentUser.userId}`
@@ -39,10 +58,16 @@ export default function Cart({ page }) {
     updateCart(response.data)
   }
 
+  // get data from listing id
+  const getIndividualItem = async (id) => {
+    const response = await axios.get(`api/listings?id=${id}`)
+    return response.data[0]
+  }
+
   return (
     <>
       <h1 className='font-semibold text-2xl mb-2'>Your cart</h1>
-      {currentCart?.length == 0 && (
+      {completedCart?.length == 0 && (
         <div className='flex flex-col w-full items-center gap-y-3'>
           <h2>Your cart is empty :(</h2>
           <button
@@ -53,19 +78,21 @@ export default function Cart({ page }) {
           </button>
         </div>
       )}
-      {currentCart?.length != 0 && (
+      {completedCart?.length != 0 && (
         <div>
           <div className='overflow-auto max-h-[400px] my-7'>
-            {currentCart?.map((item) => (
+            {completedCart?.map((item) => (
               <div className='flex items-center my-5' key={item.id}>
-                <img src={item.image} className='w-36'></img>
+                <img src={item.itemDetails?.image} className='w-36'></img>
                 <div className='flex flex-1 flex-col justify-between gap-y-1'>
-                  <h1 className='font-semibold mb-2 text-lg'>{item.name}</h1>
+                  <h1 className='font-semibold mb-2 text-lg'>
+                    {item.itemDetails?.name}
+                  </h1>
                   <p className='opacity-60'>
-                    {item.description.substring(0, 50)}...
+                    {item.itemDetails?.description}...
                   </p>
                   <div className='text-orange text-lg'>
-                    {item.quantity} x ${item.price}
+                    {item.quantity} x ${item.itemDetails?.price}
                   </div>
                 </div>
                 <FiTrash
@@ -79,7 +106,7 @@ export default function Cart({ page }) {
           <div className='flex justify-between'>
             <span className='font-semibold text-lg'>SUBTOTAL</span>
             <span className='font-semibold text-lg'>
-              ${calculateTotal(currentCart)}
+              ${calculateTotal(completedCart)}
             </span>
           </div>
           {page == 'navbar' && (
