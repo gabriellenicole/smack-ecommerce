@@ -28,7 +28,8 @@ export default function Home() {
 
   useEffect(() => {
     getItems()
-  }, [])
+    console.log('called')
+  }, [currentFilter])
 
   return (
     <div>

@@ -7,13 +7,18 @@ import { useCart } from '../hooks/useCart'
 
 export default function Navbar() {
   const { showCart, toggleCart } = useCart()
-  const [openCart, setOpenCart] = useState(false)
   const { currentUser, logout } = useUser()
+  const { currentCart } = useCart()
 
   const handleLogout = () => {
     localStorage.removeItem('user')
     localStorage.removeItem('password')
+    localStorage.removeItem('userId')
     logout()
+  }
+
+  const calculateCartNumber = (cartData) => {
+    return cartData.length
   }
 
   return (
@@ -31,7 +36,7 @@ export default function Navbar() {
           >
             <BiCart size='2rem' />
             <span className='absolute text-sm right-9 top-[-1px] text-white bg-orange self-center rounded-full w-5 h-5 items-center flex justify-center'>
-              2
+              {calculateCartNumber(currentCart)}
             </span>
             <h2 className='text-lg'>Cart</h2>
           </div>
