@@ -10,7 +10,7 @@ export default function Login() {
 
   const deleteApiCall = async (listingId) => {
     const response = await smackAxios.delete(
-      `api/cart?listing_id=${listingId}&user_id=${currentUser.userId}`
+      `api/help?listing_id=${listingId}&user_id=${currentUser.userId}`
     )
     updateCart(response.data)
   }
