@@ -19,9 +19,9 @@ export default function ProtectedRoute() {
 
   useEffect(() => {
     // only call whenever currentUser does exist
-    if (currentUser) {
+    if (currentUser?.username) {
       getCart()
     }
   }, [])
-  return currentUser ? <Outlet /> : <Navigate to='/login' />
+  return currentUser?.username ? <Outlet /> : <Navigate to='/login' />
 }
