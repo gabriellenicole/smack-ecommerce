@@ -33,9 +33,8 @@ export default function Cart({ page }) {
 
 
   const handleDelete = async (listingId) => {
-    const response = await smackAxios.delete(
-      `api/cart?listing_id=${listingId}&user_id=${currentUser.userId}`
-    )
+    await smackAxios.delete(`api/cart?getListingData=true&listing_id=${listingId}&user_id=${currentUser.userId}`)
+    const response = await smackAxios.get(`api/cart?getListingData=true&user_id=${currentUser.userId}`)
     updateCart(response.data)
   }
 
