@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
 const initialState = {
   cartToggle: false,
   product: [],
@@ -12,6 +13,7 @@ export const cartSlice = createSlice({
     toggleCart: (state) => {
       state.cartToggle = !state.cartToggle
     },
+
     updateCart: (state, action) => {
       state.product = action.payload
     },
