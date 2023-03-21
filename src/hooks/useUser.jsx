@@ -8,8 +8,8 @@ export const useUser = () => {
   const { clear } = useFilter()
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
-  const loginHelper = (username) => {
-    dispatch(login(username))
+  const loginHelper = (username, userId) => {
+    dispatch(login({ username: username, userId: userId }))
   }
 
   const logoutHelper = () => {

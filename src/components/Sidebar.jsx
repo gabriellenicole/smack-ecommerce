@@ -12,16 +12,12 @@ export default function Sidebar() {
   const ref = useRef([])
 
   useEffect(() => {
-    console.log("sort: " + sort)
-    console.log("subcat: " + subCat)
-    console.log("pricerange: " + priceRange)
     let subCat_joined = subCat.join('+')
     let priceRange_joined = priceRange.join('+')
     setGetRequest(`http://localhost:9999/api/listings?category=${subCat_joined}&?priceRange=${priceRange_joined}&sort=${sort}`)
   },[priceRange, sort, subCat])
 
   const handleClear = () => {
-    console.log(selectFilter)
     for (let i = 0; i < ref.current.length; i++) {
       ref.current[i].checked = false
     }

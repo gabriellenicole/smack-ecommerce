@@ -3,20 +3,39 @@ import Landing from '../components/Landing'
 import Sidebar from '../components/Sidebar'
 import ShopItem from '../components/ShopItem'
 import { Link } from 'react-router-dom'
-import Axios from 'axios'
+import { smackAxios } from '../api'
+import { useFilter } from '../hooks/useFilter'
 
 export default function Home() {
   const [data, setData] = useState([])
-  const [cartData, setCartData] = useState([])
+  const { currentFilter } = useFilter()
   const getItems = () => {
-    Axios.get('http://localhost:9999/api/listings').then((response) => {
-      setData(response.data)
-    })
+    let cat = ''
+    let prc = ''
+    let srt = ''
+
+    if (currentFilter) {
+      if (currentFilter.category) {
+        cat = currentFilter.category.join('+')
+      }
+      if (currentFilter.priceRange) {
+        prc = currentFilter.priceRange.join('+')
+      }
+      if (currentFilter.sort) {
+        srt = currentFilter.sort
+      }
+    }
+
+    smackAxios
+      .get(`api/listings?category=${cat}&priceRange=${prc}&sort=${srt}`)
+      .then((response) => {
+        setData(response.data)
+      })
   }
 
   useEffect(() => {
     getItems()
-  }, [])
+  }, [currentFilter])
 
   return (
     <div>
