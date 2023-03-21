@@ -22,7 +22,7 @@
 ## About The Project
 
 This is an ecommerce website, selling different varieties of snacks. Some of the best features of this website are:
-* Persist Authentication: User won't need to re-login after page reload
+* Persist Authentication: User doesn't need to re-login after page reload
 * Personalised Shopping Session: Each registered user will have his/her own shopping cart
 * Sort & Filter: Easy to find snacks based on personal preferences
     <br />
@@ -30,7 +30,7 @@ This is an ecommerce website, selling different varieties of snacks. Some of the
 
 
 ## Project Demo
-[![Watch the video](https://drive.google.com/uc?id=1AbusdN04E6HIKtaU1ocJz7Qw67VECDuw)](https://drive.google.com/file/d/1g0IO6sS1uSWfAQ9mFQ2s_Ff_i2pcnPIc/view?usp=share_link)
+[![Watch this Demo Video](https://drive.google.com/uc?id=1AbusdN04E6HIKtaU1ocJz7Qw67VECDuw)](https://drive.google.com/file/d/1g0IO6sS1uSWfAQ9mFQ2s_Ff_i2pcnPIc/view?usp=share_link)
     <br />
     <br />
 
