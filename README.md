@@ -47,6 +47,6 @@ This is an ecommerce website, selling different varieties of snacks. Some of the
 
 ### Repositories
 <p>Front-end: https://github.com/gabriellenicole/smack-ecommerce</p>
-<p>Back-end: https://github.com/aftanza/smack-full</p>
+<p>Back-end: https://github.com/aftanza/IM2073-smack-backend</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
